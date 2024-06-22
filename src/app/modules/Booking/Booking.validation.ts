@@ -1,27 +1,23 @@
-// src/AvailableSlots/Booking.validation.ts
-
 import { z } from 'zod';
 
-export const bookingSchema = z.object({
-  serviceId: z.string().nonempty({ message: 'Service ID is required' }),
-  slotId: z.string().nonempty({ message: 'Slot ID is required' }),
-  vehicleType: z.string().nonempty({ message: 'Vehicle type is required' }),
-  vehicleBrand: z.string().nonempty({ message: 'Vehicle brand is required' }),
-  vehicleModel: z.string().nonempty({ message: 'Vehicle model is required' }),
-  manufacturingYear: z
-    .number()
-    .int()
-    .min(1886, { message: 'Valid manufacturing year is required' }),
-  registrationPlate: z
-    .string()
-    .nonempty({ message: 'Registration plate is required' }),
-});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const validateBooking = (data: any) => {
+  const bookingSchema = z.object({
+    serviceId: z.string(),
+    slotId: z.string(),
+    vehicleType: z.string(),
+    vehicleBrand: z.string(),
+    vehicleModel: z.string(),
+    manufacturingYear: z.number(),
+    registrationPlate: z.string(),
+  });
 
-export const validateBooking = (req, res, next) => {
-  try {
-    bookingSchema.parse(req.body);
-    next();
-  } catch (e) {
-    return res.status(400).json({ success: false, errors: e.errors });
+  bookingSchema.parse(data);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const validateGetAllBookings = (user: any) => {
+  if (!user || user.role !== 'admin') {
+    throw new Error('Unauthorized access');
   }
 };

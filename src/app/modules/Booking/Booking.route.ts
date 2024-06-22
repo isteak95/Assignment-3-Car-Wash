@@ -1,18 +1,14 @@
-// src/AvailableSlots/Booking.route.ts
-
 import { Router } from 'express';
-import { BookingController } from './Booking.controller';
-import { validateBooking } from './Booking.validation';
-// import { authenticateToken } from '../../middlewares/authMiddleware';
+import BookingController from './Booking.controller';
+import {
+  authenticateJWT,
+  checkUser,
+  checkAdmin,
+} from '../../middlewares/auth.middleware';
 
 const router = Router();
-const bookingController = new BookingController();
 
-router.post(
-  '/',
-
-  validateBooking,
-  bookingController.createBooking,
-);
+router.post('/', authenticateJWT, checkUser, BookingController.bookService);
+router.get('/', authenticateJWT, checkAdmin, BookingController.getAllBookings);
 
 export default router;

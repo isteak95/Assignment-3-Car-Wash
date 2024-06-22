@@ -1,19 +1,39 @@
-// src/AvailableSlots/Booking.service.ts
-
 import BookingModel from './Booking.model';
-import SlotModel from '../Slot/Slot.model'; // Import Slot model for updating slot status
-import { IBooking } from './Booking.interface';
+import SlotModel from '../Slot/Slot.model';
+import mongoose from 'mongoose';
 
-export class BookingService {
-  public async createBooking(bookingData: IBooking): Promise<IBooking> {
-    const booking = new BookingModel(bookingData);
+class BookingService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async bookService(data: any, user: any) {
+    console.log('Booking data:', data);
+    console.log('User data:', user);
 
-    // Save the booking
-    const newBooking = await booking.save();
+    const booking = new BookingModel({
+      customer: new mongoose.Types.ObjectId(user._id),
+      service: new mongoose.Types.ObjectId(data.serviceId),
+      slot: new mongoose.Types.ObjectId(data.slotId),
+      vehicleType: data.vehicleType,
+      vehicleBrand: data.vehicleBrand,
+      vehicleModel: data.vehicleModel,
+      manufacturingYear: data.manufacturingYear,
+      registrationPlate: data.registrationPlate,
+    });
 
-    // Update the slot status to 'booked'
-    await SlotModel.findByIdAndUpdate(bookingData.slot, { isBooked: 'booked' });
+    await booking.save();
+    await SlotModel.findByIdAndUpdate(data.slotId, { isBooked: 'booked' });
 
-    return newBooking;
+    return BookingModel.findById(booking._id)
+      .populate('customer')
+      .populate('service')
+      .populate('slot');
+  }
+
+  async getAllBookings() {
+    return BookingModel.find()
+      .populate('customer')
+      .populate('service')
+      .populate('slot');
   }
 }
+
+export default new BookingService();

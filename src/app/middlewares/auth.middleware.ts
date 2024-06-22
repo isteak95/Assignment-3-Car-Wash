@@ -43,8 +43,24 @@ export const checkAdmin = (
   } else {
     res.status(403).send({
       success: false,
+      statusCode: 401,
+      message: 'You have no access to this route',
+    });
+  }
+};
+
+export const checkUser = (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  if (req.user && req.user.role === 'user') {
+    next(); // Proceed to the next middleware or route handler
+  } else {
+    res.status(403).send({
+      success: false,
       statusCode: 403,
-      message: 'Forbidden: Admins only',
+      message: 'You have no access to this route',
     });
   }
 };

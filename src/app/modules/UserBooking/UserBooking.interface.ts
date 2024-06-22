@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IBooking extends Document {
+export interface IUserBooking extends Document {
   customer: string;
   service: string;
   slot: string;

@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
+import { IUserBooking } from './UserBooking.interface';
 
-const bookingSchema = new Schema(
+const userBookingSchema = new Schema<IUserBooking>(
   {
     customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
@@ -14,4 +15,4 @@ const bookingSchema = new Schema(
   { timestamps: true },
 );
 
-export default model('Booking', bookingSchema);
+export default model<IUserBooking>('UserBooking', userBookingSchema);

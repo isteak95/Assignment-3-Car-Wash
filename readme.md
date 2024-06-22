@@ -1,64 +1,46 @@
-- # product Management
-- Make a product management application with express,mongoose and typescript
+- # Car Service Booking System
+- Make a Car Wash application with express,mongoose and typescript
 
 - ## Host Link
-- Hosted in Vercel => https://product-management-gold.vercel.app/
+- Hosted in Vercel =>
 
-- ### Instructions for run this file locally
-- npm install --force (run this command in terminal for this file for install all packages)
+## Project Name
 
-- ### Features
-- Here you can create new product
-- You can get all product
-- You can get a specific user by using productId
-- You can update product
-- You can delete product
-- Here you can create new order
-- You can get all orders for a specific user
-- You can search product
-- you bcan get order by email
-- whwne you place a order then quantity reduce from product quantity
+- Car Wash
 
-{
-"name": "John Doe",
-"email": "john.doe@example.com",
-"password": "jd-password",
-"phone": "0987654321",
-"role": "user",
-"address": "456 Elm Street, Town, Country"
-}
-{
-"name": "Alice Johnson",
-"email": "alice.johnson@example.com",
-"password": "aj-password",
-"phone": "2223334444",
-"role": "user",
-"address": "321 Pine Road, Hamlet, Country"
-}
-{
-"name": "Bob Brown",
-"email": "bob.brown@example.com",
-"password": "bb-password",
-"phone": "5556667777",
-"role": "admin",
-"address": "654 Maple Lane, Borough, Country"
-}
-{
-"name": "Jane Smith",
-"email": "jane.smith@example.com",
-"password": "js-password",
-"phone": "1112223333",
-"role": "admin",
-"address": "789 Oak Avenue, Village, Country"
-}
-src/
-|-- user/
-| |-- user.controller.ts| |-- user.service.ts
-| |-- user.model.ts |-- user.route.ts |-- user.validation.ts
-|-- service/ |-- service.controller.ts
-| |-- service.interface.ts |-- service.model.ts |-- service.route.ts |-- service.service.ts |-- service.validation.ts
-|
-|-- middleware/
-| |-- auth.middleware.ts
-|-- app.ts
-|-- server.ts
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Setup and Installation](#setup-and-installation)
+5. [Usage](#usage)
+6. [API Endpoints](#api-endpoints)
+7. [Error Handling](#error-handling)
+8. [Not Found Route](#not-found-route)
+9. [Authentication Middleware](#authentication-middleware)
+10. [Contributing](#contributing)
+11. [License](#license)
+
+## Introduction
+
+The Car Service Booking System is a web application that allows users to book various car services, such as car washes, maintenance, and repairs. Users can view available services, book time slots, and manage their bookings. Admins can manage services and view all bookings.
+
+## Features
+
+- User authentication and authorization
+- Service booking with available slots
+- User-specific booking management
+- Admin-specific booking and service management
+- Real-time updates for booking status
+- Error handling and validation
+- Secure API endpoints
+
+## Technologies Used
+
+- **Backend**: Node.js, Express.js, Mongoose
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
+- **Validation**: Zod
+- **Environment Variables**: Dotenv
+- **API Documentation**: OpenAPI (Swagger)
