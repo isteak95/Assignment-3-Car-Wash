@@ -17,7 +17,7 @@ const loginSchema = object({
   password: string().min(6),
 });
 
-export const validateSignUp = async (
+export const validateSignUp = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -25,12 +25,13 @@ export const validateSignUp = async (
   try {
     signUpSchema.parse(req.body);
     next();
-  } catch (error) {
-    res.status(400).json({ success: false, message: error.errors });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    res.status(400).json({ success: false, message: formatZodError(error) });
   }
 };
 
-export const validateLogin = async (
+export const validateLogin = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -38,7 +39,23 @@ export const validateLogin = async (
   try {
     loginSchema.parse(req.body);
     next();
-  } catch (error) {
-    res.status(400).json({ success: false, message: error.errors });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    res.status(400).json({ success: false, message: formatZodError(error) });
+  }
+};
+
+// Helper function to format Zod validation errors
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const formatZodError = (error: any) => {
+  if (error?.format && typeof error.format === 'function') {
+    // Use Zod's format method to get formatted error messages
+    return error.format();
+  } else if (error.message) {
+    // Fall back to returning the error message if available
+    return error.message;
+  } else {
+    // Default error message for unexpected errors
+    return 'Invalid request body';
   }
 };

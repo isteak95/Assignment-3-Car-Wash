@@ -1,6 +1,7 @@
 import { Slot } from './AvailableSlots.model';
 
 export const getAvailableSlots = async (date?: string, serviceId?: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const query: any = {};
 
   if (date) {

@@ -1,10 +1,20 @@
-import { Request, Response } from 'express';
+import { AuthenticatedRequest } from './AuthenticatedRequest'; // Assuming you named the file AuthenticatedRequest.ts
+import { Response } from 'express';
 import UserBookingService from './UserBooking.service';
 
 class UserBookingController {
-  async getUserBookings(req: Request, res: Response) {
+  async getUserBookings(req: AuthenticatedRequest, res: Response) {
     try {
-      const userId = req.user._id;
+      // Check if req.user is defined
+      const userId = req.user?._id; // Use optional chaining to avoid errors if req.user is undefined
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          statusCode: 401,
+          message: 'Unauthorized access',
+        });
+      }
+
       const bookings = await UserBookingService.getUserBookings(userId);
       if (!bookings.length) {
         return res.status(404).json({
@@ -14,14 +24,22 @@ class UserBookingController {
           data: [],
         });
       }
+
       res.status(200).json({
         success: true,
         statusCode: 200,
         message: 'User bookings retrieved successfully',
         data: bookings,
       });
-    } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('Error in getUserBookings:', error); // Log the error for debugging
+
+      // Handle error and send response
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Internal Server Error',
+      });
     }
   }
 }

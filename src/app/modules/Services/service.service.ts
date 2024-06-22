@@ -12,11 +12,12 @@ export const createService = async (
       message: 'Service created successfully',
       data: newService,
     };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     return {
       success: false,
       statusCode: 500,
-      message: error.message,
+      message: error.message || 'Internal server error',
     };
   }
 };
@@ -37,11 +38,12 @@ export const getServiceById = async (id: string): Promise<ServiceResponse> => {
       message: 'Service retrieved successfully',
       data: service,
     };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     return {
       success: false,
       statusCode: 500,
-      message: error.message,
+      message: error.message || 'Internal server error',
     };
   }
 };
@@ -55,11 +57,12 @@ export const getAllServices = async (): Promise<ServiceResponse> => {
       message: 'Services retrieved successfully',
       data: services,
     };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     return {
       success: false,
       statusCode: 500,
-      message: error.message,
+      message: error.message || 'Internal server error',
     };
   }
 };
@@ -85,16 +88,15 @@ export const updateService = async (
       message: 'Service updated successfully',
       data: updatedService,
     };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     return {
       success: false,
       statusCode: 500,
-      message: error.message,
+      message: error.message || 'Internal server error',
     };
   }
 };
-
-// service.service.ts
 
 export const deleteService = async (id: string): Promise<ServiceResponse> => {
   try {
@@ -117,14 +119,15 @@ export const deleteService = async (id: string): Promise<ServiceResponse> => {
       message: 'Service deleted successfully',
       data: deletedService,
     };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     // Log the error for debugging purposes
     console.error('Error deleting service:', error);
 
     return {
       success: false,
       statusCode: 500,
-      message: error.message,
+      message: error.message || 'Internal server error',
     };
   }
 };

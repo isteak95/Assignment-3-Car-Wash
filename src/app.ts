@@ -21,8 +21,7 @@ app.use(bodyParser.json());
 app.use('/api', userRoutes);
 
 const test = (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a);
+  res.send('Server is  running');
 };
 
 app.get('/', test);

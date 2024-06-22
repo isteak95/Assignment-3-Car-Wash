@@ -1,9 +1,9 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export interface IUserBooking extends Document {
-  customer: string;
-  service: string;
-  slot: string;
+  customer: Types.ObjectId;
+  service: Types.ObjectId;
+  slot: Types.ObjectId;
   vehicleType: string;
   vehicleBrand: string;
   vehicleModel: string;
