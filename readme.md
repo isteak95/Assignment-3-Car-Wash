@@ -2,7 +2,7 @@
 - Make a Car Wash application with express,mongoose and typescript
 
 - ## Host Link
-- Hosted in Vercel =>
+- Hosted in Vercel => https://car-wash-booking-system-five.vercel.app/
 
 ## Project Name
 
